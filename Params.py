@@ -20,10 +20,10 @@ def parse_args():
 	parser.add_argument('--save_embed', default=False, type=bool, help='whether to save learned embeddings for pretraining code')
 	parser.add_argument('--preTrn_item', default=False, type=bool, help='Pretrain for user embeddings or item embeddings')
 	parser.add_argument('--test_epoch', default=5, type=int, help='how many epoches to test')
-	parser.add_argument('--data', default='yelp', type=str, help='name of dataset')
+	parser.add_argument('--data', default='beibei', type=str, help='name of dataset')
 	parser.add_argument('--target', default='buy', type=str, help='target behavior to predict on')
 	parser.add_argument('--graphSampleN', default='25000', type=int, help='use 25000 for training and 200000 for testing, empirically')
-	return parser.parse_args()
+	return parser.parse_args(args=[])
 args = parse_args()
 # args.user = 805506#147894
 # args.item = 584050#99037
