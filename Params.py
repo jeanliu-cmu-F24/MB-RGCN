@@ -17,13 +17,17 @@ def parse_args():
 	parser.add_argument('--load_model', default=None, help='model name to load')
 	parser.add_argument('--shoot', default=10, type=int, help='K of top k')
 	parser.add_argument('--gnn_layer', default=2, type=int, help='number of gnn layers')
-	parser.add_argument('--save_embed', default=False, type=bool, help='whether to save learned embeddings for pretraining code')
+	parser.add_argument('--save_embed', default=False, type=bool,
+						help='whether to save learned embeddings for pretraining code')
 	parser.add_argument('--preTrn_item', default=False, type=bool, help='Pretrain for user embeddings or item embeddings')
-	parser.add_argument('--test_epoch', default=5, type=int, help='how many epoches to test')
+	parser.add_argument('--test_epoch', default=5, type=int, help='how many epochs to test')
 	parser.add_argument('--data', default='beibei', type=str, help='name of dataset')
 	parser.add_argument('--target', default='buy', type=str, help='target behavior to predict on')
-	parser.add_argument('--graphSampleN', default='25000', type=int, help='use 25000 for training and 200000 for testing, empirically')
-	return parser.parse_args(args=[])
+	parser.add_argument('--graphSampleN', default='25000', type=int,
+						help='use 25000 for training and 200000 for testing, empirically')
+	parser.add_argument('--gcn_list', nargs='+', type=int, help='A "list" of integers with space as the delimiter \
+						to indicate the {# of LightGCN layers} within each behavior block')  # --gcn_list 2 1 1
+	return parser.parse_args()
 args = parse_args()
 # args.user = 805506#147894
 # args.item = 584050#99037

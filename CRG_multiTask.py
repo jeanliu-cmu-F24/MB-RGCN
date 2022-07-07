@@ -135,7 +135,8 @@ class Recommender:
 		for inp in range(args.intTypes):
 			layer_embeddings = total_embeddings
 			# use LightGCN to embed the input
-			layer_embeddings = self._create_lightGCN_embed(layer_embeddings, inp)
+			print("The number of layers in the block {} is {}".format(inp, args.gcn_list[inp]))
+			layer_embeddings = self._create_lightGCN_embed(layer_embeddings, inp, n_layers=args.gcn_list[inp])
 			# TODO: add dropout layer here?
 			# Embedding Normalization (L2 Norm)
 			layer_embeddings = layer_embeddings / (1e-6 + tf.sqrt(1e-6 + tf.reduce_sum(tf.square(layer_embeddings),
@@ -149,18 +150,36 @@ class Recommender:
 			)
 			ulats.append(ulat)
 			ilats.append(ilat)
+			self._get_multi_loss(ulat, ilat) # use the latest user item embeddings to predict the interaction
+
+		'''
 		# use the latest [-1] users/items embedding for look-up
-		# ulat = FC(ulat[-1], args.latdim, reg=True, useBias=True, name='ablation_trans',
-		# 		  activation='relu')
-		# ilat = FC(ilats[-1], args.latdim, reg=True, useBias=True, name='ablation_trans', reuse=True,
-		# 		  activation='relu')
+		ulat = FC(ulat[-1], args.latdim, reg=True, useBias=True, name='ablation_trans',
+				  activation='relu')
+		ilat = FC(ilats[-1], args.latdim, reg=True, useBias=True, name='ablation_trans', reuse=True,
+				  activation='relu')
 		pckUlat = tf.nn.embedding_lookup(ulats[-1], self.uids)
 		pckIlat = tf.nn.embedding_lookup(ilats[-1], self.iids)
 		predLat = pckUlat * pckIlat * args.mult
 		for i in range(1):
 			predLat = FC(predLat, args.latdim, reg=True, useBias=True, activation='relu') + predLat
 		pred = tf.squeeze(FC(predLat, 1, reg=True, useBias=True)) # * args.mult
-		return pred
+		'''
+
+	def _get_multi_loss(self, ulat, ilat):
+		pckUlat = tf.nn.embedding_lookup(ulat, self.uids)
+		pckIlat = tf.nn.embedding_lookup(ilat, self.iids)
+		predLat = pckUlat * pckIlat * args.mult
+		for i in range(1):
+			predLat = FC(predLat, args.latdim, reg=True, useBias=True, activation='relu') + predLat
+			pred = tf.squeeze(FC(predLat, 1, reg=True, useBias=True))  # * args.mult
+		self.pred = pred  # update self.pred
+		sampNum = tf.shape(self.iids)[0] // 2
+		posPred = tf.slice(self.pred, [0], [sampNum])
+		negPred = tf.slice(self.pred, [sampNum], [-1])
+		self.preLoss = tf.reduce_sum(tf.maximum(0.0, 1.0 - (posPred - negPred))) / args.batch
+		self.sumLoss += self.preLoss
+
 
 	def prepareModel(self):
 		self.uiMats = []
@@ -173,14 +192,17 @@ class Recommender:
 			self.iuMats.append(tf.sparse.SparseTensor(idx, data, shape))
 		self.uids = tf.placeholder(dtype=tf.int32, shape=[None])
 		self.iids = tf.placeholder(dtype=tf.int32, shape=[None])
-
-		self.pred = self.cascading_block()
+		
+		self.sumLoss = 0
+		self.cascading_block()  # update self.pred directly in the _get_multi_loss function
+		'''
 		sampNum = tf.shape(self.iids)[0]//2
 		posPred = tf.slice(self.pred, [0], [sampNum])
 		negPred = tf.slice(self.pred, [sampNum], [-1])
 		self.preLoss = tf.reduce_sum(tf.maximum(0.0, 1.0 - (posPred - negPred))) / args.batch
+		'''
 		self.regLoss = args.reg * Regularize()
-		self.loss = self.preLoss + self.regLoss
+		self.loss = self.sumLoss + self.regLoss
 
 		globalStep = tf.Variable(0, trainable=False)
 		learningRate = tf.train.exponential_decay(args.lr, globalStep, args.decay_step, args.decay, staircase=True)
