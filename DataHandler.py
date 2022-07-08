@@ -5,17 +5,15 @@ import scipy.sparse as sp
 from Utils.TimeLogger import log
 from Params import args
 
-if args.data == 'yelp':
-	predir = 'Datasets/yelp/%s/' % args.target
-	behs = ['tip', 'neg', 'neutral', 'pos']
-elif args.data == 'ml10m':
-	predir = 'Datasets/MultiInt-ML10M/%s/' % args.target
-	behs = ['neg', 'neutral', 'pos']
-elif args.data == 'ECommerce':
-	predir = 'Datasets/Tmall/%s/' % args.target
+
+if args.data == 'ijcai':
+	predir = './Datasets/ijcai/'
+	behs = ['click', 'fav', 'cart', 'buy']
+elif args.data == 'tmall':
+	predir = 'Datasets/Tmall/' % args.target
 	behs = ['pv', 'fav', 'cart', 'buy']
 elif args.data == 'beibei':
-	predir = 'Datasets/beibei/%s/' % args.target
+	predir = 'Datasets/beibei/' % args.target
 	behs = ['pv', 'cart', 'buy']
 trnfile = predir + 'trn_'
 tstfile = predir + 'tst_'
