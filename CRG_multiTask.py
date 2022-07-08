@@ -135,8 +135,11 @@ class Recommender:
 		for inp in range(args.intTypes):
 			layer_embeddings = total_embeddings
 			# use LightGCN to embed the input
-			print("The number of layers in the block {} is {}".format(inp, args.gcn_list[inp]))
-			layer_embeddings = self._create_lightGCN_embed(layer_embeddings, inp, n_layers=args.gcn_list[inp])
+			if (len(args.gcn_list[inp]) > 0):
+				print("The number of layers in the block {} is {}".format(inp, args.gcn_list[inp]))
+				layer_embeddings = self._create_lightGCN_embed(layer_embeddings, inp, n_layers=args.gcn_list[inp])
+			else:
+				layer_embeddings = self._create_lightGCN_embed(layer_embeddings, inp)
 			# TODO: add dropout layer here?
 			# Embedding Normalization (L2 Norm)
 			layer_embeddings = layer_embeddings / (1e-6 + tf.sqrt(1e-6 + tf.reduce_sum(tf.square(layer_embeddings),
