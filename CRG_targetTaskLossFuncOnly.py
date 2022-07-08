@@ -71,39 +71,31 @@ class Recommender:
 		:return:
 			scipy.sparse.csr_matrix: Normalized adjacency matrix.
 		'''
-        adj_mat = sp.dok_matrix(
+        A = sp.dok_matrix(
             (args.user + args.item, args.user + args.item), dtype=np.float32
         )
-        adj_mat = adj_mat.tolil()
-        R = R.tolil()  # R is a user-item adjacency matrix
-
-        adj_mat[:args.user, args.user:] = R
-        adj_mat[args.user:, : args.user] = R.T
-        adj_mat = adj_mat.todok()
-        print("Already create adjacency matrix.")
-
-        rowsum = np.array(adj_mat.sum(1))
-        d_inv = np.power(rowsum + 1e-9, -0.5).flatten()
-        d_inv[np.isinf(d_inv)] = 0.0
-        d_mat_inv = sp.diags(d_inv)
-        norm_adj_mat = d_mat_inv.dot(adj_mat)
-        norm_adj_mat = norm_adj_mat.dot(d_mat_inv)
+        inter_M = R.tocoo().astype(np.float32)
+        inter_M_t = inter_M.transpose()
+        data_dict = dict(zip(zip(inter_M.row, inter_M.col + args.user), [1] * inter_M.nnz))
+        data_dict.update(dict(zip(zip(inter_M_t.row + args.user, inter_M_t.col), [1] * inter_M_t.nnz)))
+        A._update(data_dict)
+        # norm adj matrix
+        sumArr = (A > 0).sum(axis=1)
+        # add epsilon to avoid divide by zero Warning
+        diag = np.array(sumArr.flatten())[0] + 1e-7
+        diag = np.power(diag, -0.5)
+        D = sp.diags(diag)
+        L = D * A * D
         print("Already normalize adjacency matrix.")
-        return norm_adj_mat.tocsr()
+        L = L.tocoo().astype(np.float32)
+        indices = np.mat([L.row, L.col]).transpose()
+        return tf.SparseTensor(indices, L.data, L.shape)
 
-    def _convert_sp_mat_to_sp_tensor(self, X):
-        """
-		Convert a scipy sparse matrix to tf.SparseTensor.
-		:return: tf.SparseTensor: SparseTensor after conversion.
-        """
-        coo = X.tocoo().astype(np.float32)
-        indices = np.mat([coo.row, coo.col]).transpose()
-        return tf.SparseTensor(indices, coo.data, coo.shape)
 
     def _create_lightGCN_embed(self, ego_embedding, behavior_ind, n_layers=2):
         # TODO: remember to set n_layers as a self.property!!!
         all_embeddings = [ego_embedding]
-        A_hat = (self._convert_sp_mat_to_sp_tensor(self.create_norm_adj_mat(self.trnMats[behavior_ind])))
+        A_hat = self.create_norm_adj_mat(self.trnMats[behavior_ind])
         for k in range(0, n_layers):
             ego_embedding = tf.sparse.sparse_dense_matmul(A_hat, ego_embedding)
             all_embeddings.append(ego_embedding)
