@@ -135,7 +135,7 @@ class Recommender:
 		for inp in range(args.intTypes):
 			layer_embeddings = total_embeddings
 			# use LightGCN to embed the input
-			if (len(args.gcn_list[inp]) > 0):
+			if (len(args.gcn_list) > 0):
 				print("The number of layers in the block {} is {}".format(inp, args.gcn_list[inp]))
 				layer_embeddings = self._create_lightGCN_embed(layer_embeddings, inp, n_layers=args.gcn_list[inp])
 			else:
