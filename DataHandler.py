@@ -10,10 +10,10 @@ if args.data == 'ijcai':
 	predir = './Datasets/ijcai/'
 	behs = ['click', 'fav', 'cart', 'buy']
 elif args.data == 'tmall':
-	predir = 'Datasets/Tmall/' % args.target
+	predir = 'Datasets/Tmall/'
 	behs = ['pv', 'fav', 'cart', 'buy']
 elif args.data == 'beibei':
-	predir = 'Datasets/beibei/' % args.target
+	predir = 'Datasets/beibei/'
 	behs = ['pv', 'cart', 'buy']
 trnfile = predir + 'trn_'
 tstfile = predir + 'tst_'
