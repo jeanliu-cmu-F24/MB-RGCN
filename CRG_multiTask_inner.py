@@ -163,7 +163,8 @@ class Recommender:
 		pckUlat = tf.nn.embedding_lookup(ulat, self.uids)
 		pckIlat = tf.nn.embedding_lookup(ilat, self.iids)
 		predLat = pckUlat * pckIlat * args.mult
-		self.pred = predLat  # update self.pred
+		pred = tf.squeeze(FC(predLat, 1, reg=True, useBias=True)) # change the dimension of the pred to 1
+		self.pred = pred  # update self.pred
 		sampNum = tf.shape(self.iids)[0] // 2
 		posPred = tf.slice(self.pred, [0], [sampNum])
 		negPred = tf.slice(self.pred, [sampNum], [-1])
