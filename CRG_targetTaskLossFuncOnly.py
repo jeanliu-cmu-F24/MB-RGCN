@@ -150,8 +150,6 @@ class Recommender:
         pckUlat = tf.nn.embedding_lookup(ulats[-1], self.uids)
         pckIlat = tf.nn.embedding_lookup(ilats[-1], self.iids)
         predLat = pckUlat * pckIlat * args.mult
-        for i in range(1):
-            predLat = FC(predLat, args.latdim, reg=True, useBias=True, activation='relu') + predLat
         pred = tf.squeeze(FC(predLat, 1, reg=True, useBias=True))  # * args.mult
         return pred
 
