@@ -145,27 +145,12 @@ class Recommender:
 		ilats.append(ilat)
 		self._get_multi_loss(ulat, ilat) # use the latest user item embeddings to predict the interaction
 
-		'''
-		# use the latest [-1] users/items embedding for look-up
-		ulat = FC(ulat[-1], args.latdim, reg=True, useBias=True, name='ablation_trans',
-				  activation='relu')
-		ilat = FC(ilats[-1], args.latdim, reg=True, useBias=True, name='ablation_trans', reuse=True,
-				  activation='relu')
-		pckUlat = tf.nn.embedding_lookup(ulats[-1], self.uids)
-		pckIlat = tf.nn.embedding_lookup(ilats[-1], self.iids)
-		predLat = pckUlat * pckIlat * args.mult
-		for i in range(1):
-			predLat = FC(predLat, args.latdim, reg=True, useBias=True, activation='relu') + predLat
-		pred = tf.squeeze(FC(predLat, 1, reg=True, useBias=True)) # * args.mult
-		'''
 
 	def _get_multi_loss(self, ulat, ilat):
 		pckUlat = tf.nn.embedding_lookup(ulat, self.uids)
 		pckIlat = tf.nn.embedding_lookup(ilat, self.iids)
 		predLat = pckUlat * pckIlat * args.mult
-		for i in range(1):
-			predLat = FC(predLat, args.latdim, reg=True, useBias=True, activation='relu') + predLat
-			pred = tf.squeeze(FC(predLat, 1, reg=True, useBias=True))  # * args.mult
+		pred = tf.squeeze(FC(predLat, 1, reg=True, useBias=True))  # * args.mult
 		self.pred = pred  # update self.pred
 		sampNum = tf.shape(self.iids)[0] // 2
 		posPred = tf.slice(self.pred, [0], [sampNum])
