@@ -11,7 +11,7 @@ def parse_args():
 	parser.add_argument('--latdim', default=16, type=int, help='embedding size')
 	parser.add_argument('--mult', default=1e2, type=float, help='mult for pred')
 	parser.add_argument('--memosize', default=8, type=int, help='memory size')
-	parser.add_argument('--sampNum', default=40, type=int, help='batch size for sampling')
+	parser.add_argument('--sampNum', default=80, type=int, help='batch size for sampling')
 	parser.add_argument('--attHead', default=2, type=int, help='number of attention heads')
 	parser.add_argument('--trnNum', default=10000, type=int, help='number of training instances per epoch')
 	parser.add_argument('--load_model', default=None, help='model name to load')
