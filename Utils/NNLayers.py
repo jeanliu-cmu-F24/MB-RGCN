@@ -184,6 +184,9 @@ def ActivateHelp(data, method):
 	elif method == 'twoWayLeakyRelu':
 		temMask = tf.to_float(tf.greater(data, 1.0))
 		ret = temMask * (1 + leaky * (data - 1)) + (1 - temMask) * tf.maximum(leaky * data, data)
+	elif method == 'twoWayLeakyRelu6':
+		temMask = tf.to_float(tf.greater(data, 6.0))
+		ret = temMask * (6 + leaky * (data - 6)) + (1 - temMask) * tf.maximum(leaky * data, data)
 	elif method == '-1relu':
 		ret = tf.maximum(-1.0, data)
 	elif method == 'relu6':

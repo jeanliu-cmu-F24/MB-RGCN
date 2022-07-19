@@ -23,6 +23,7 @@ def parse_args():
 	parser.add_argument('--test_epoch', default=5, type=int, help='how many epochs to test')
 	parser.add_argument('--data', default='beibei', type=str, help='name of dataset')
 	parser.add_argument('--target', default='buy', type=str, help='target behavior to predict on')
+	parser.add_argument('--divSize', default=10000, type=int, help='div size for smallTestEpoch')
 	parser.add_argument('--graphSampleN', default='25000', type=int,
 						help='use 25000 for training and 200000 for testing, empirically')
 	parser.add_argument('--gcn_list', nargs='+', type=int, help='A "list" of integers with space as the delimiter \

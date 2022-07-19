@@ -11,7 +11,7 @@ if args.data == 'ijcai':
 	behs = ['click', 'fav', 'cart', 'buy']
 elif args.data == 'tmall':
 	predir = 'Datasets/Tmall/'
-	behs = ['pv', 'fav', 'cart', 'buy']
+	behs = [ 'pv', 'fav', 'cart', 'buy']
 elif args.data == 'beibei':
 	predir = 'Datasets/beibei/'
 	behs = ['pv', 'cart', 'buy']
