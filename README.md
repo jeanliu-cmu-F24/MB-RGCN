@@ -76,23 +76,23 @@ The organization of the working directory is as follows:
 ```
 1. python scripts for our MB-RGCN model
 
-    a. `MB_RGCN.py`: This is the main structure of our MB-RGCN model, where we define the MB_RGCN recommender's class
+    a. `MB_RGCN.py`: This is the main structure of our MB-RGCN model, where we define the MB_RGCN recommender's class.
   
-    b. `Params.py`: This is the arguments available when running the `MB_RGCN.py` script. The arguments cover the dataset, model configurations and other hyperparameters
+    b. `Params.py`: This is the arguments available when running the `MB_RGCN.py` script. The arguments cover the dataset, model configurations and other hyperparameters.
   
-    c. `DataHandler.py`: This is the script used to load and process the pickled datasets, so that the main script can use the intermediate output to construct a recommender object for us
+    c. `DataHandler.py`: This is the script used to load and process the pickled datasets, so that the main script can use the intermediate output to construct a recommender object for us.
   
-    d. `Utils/`: This is a folder with script serves the utility purposes
+    d. `Utils/`: This is a folder with script serves the utility purposes.
   
-     -  `constants.py`: This script covers the macros definition used in the project
+     -  `constants.py`: This script covers the macros definition used in the project.
     
-     - `NNLayers.py`: This script covers functions for tensorflow parameters management, and the basic layers such as FC (fully connected) layer, dropout layer, normalization layers, etc., and basic functions such as activation functions for neural networks construction and training
+     - `NNLayers.py`: This script covers functions for tensorflow parameters management, and the basic layers such as FC (fully connected) layer, dropout layer, normalization layers, etc., and basic functions such as activation functions for neural networks construction and training.
     
-     - `TimeLogger.py`: This script serves as the logging helper
+     - `TimeLogger.py`: This script serves as the logging helper.
 
   2. python scripts for experiment purpose 
 
-     Under the folder `Experiments/`, you can find the codes used to carry out the experiments for comparison and evaluation purpose
+     Under the folder `Experiments/`, you can find the codes used to carry out the experiments for comparison and evaluation purpose. For your information, to run the codes, you have to move the target scripts to the working directory `MB-RGCN/`.
 
       ```
       .
@@ -113,13 +113,13 @@ The organization of the working directory is as follows:
           `-- NCF_module.py
 
       ```
-     a. `Baselines/`: In this folder, there are the codes for comparison among the state-of-the-art baseline models. The script is named directly with the baselines' names.
+     a. `Baselines/`: In this folder, there are codes for comparison among the state-of-the-art baseline models. The script is named directly with the baselines' names, and each baseline's script has to be used with the `BaseDataHandler.py` script.
    
      b. `ModuleEval/`: In this folder, there are the codes for sub-module validity evaluations.
      
-      - `LightGCN_module.py`: The script is a LightGCN model on a single behavior (target behavior). The script served as a comparison to validate the effectiveness of cascading residual blocks on multiple behaviors
+      - `LightGCN_module.py`: The script is a LightGCN model on a single behavior (target behavior). The script served as a comparison to validate the effectiveness of cascading residual blocks on multiple behaviors.
       
-      - `MTL_module.py`: The script is used to test the validity of the Multi-Task Learning mechanism
+      - `MTL_module.py`: The script is used to test the validity of the Multi-Task Learning mechanism.
       
       - `NCF_module.py`: The script is used to evaluate whether to use an inner product or to use the NCF(in the form of fully-connected layer) for user-item similarity scores used in collaborative filtering.
   
@@ -144,15 +144,15 @@ The organization of the working directory is as follows:
       a. Beibei:
          There are 4 pickled files:
          
-        - 3 files with the `trn` prefix is the training data for pv (page view), cart (add-to-cart), and buy behaviors
+        - 3 files with the `trn` prefix is the training data for pv (page view), cart (add-to-cart), and buy behaviors.
          
-        - 1 file with the name `tst_int` is the test labels
+        - 1 file with the name `tst_int` is the test labels.
          
      b. Tmall:
        There are 5 pickled files:
-       - 4 files with the `trn` prefix is the training data for pv (page view), fav (tag-as-favorite), cart (add-to-cart), and buy behaviors
+       - 4 files with the `trn` prefix is the training data for pv (page view), fav (tag-as-favorite), cart (add-to-cart), and buy behaviors.
        
-       - 1 file with the name `tst_int` is the test labels
+       - 1 file with the name `tst_int` is the test labels.
 
 
 ## References
