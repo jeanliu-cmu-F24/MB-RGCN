@@ -40,9 +40,22 @@ The MB-RGCN model is implemented under the following development environment:
 
      Under the folder `Experiments/`, you can find the codes used to carry out the experiments for comparison and evaluation purpose
 
-  a. `Baselines/`: In this folder, there are the codes for comparison among the state-of-the-art baseline models. The script is named directly with the baselines' names
   
-  b. `ModuleEval/`: In this folder, there are the codes for sub-module validity evaluations
+      a. `Baselines/`: In this folder, there are the codes for comparison among the state-of-the-art baseline models. The script is named directly with the baselines' names
+   
+      b. `ModuleEval/`: In this folder, there are the codes for sub-module validity evaluations
+  
+  3. `Datasets`: The folder contains the dataset we used for the experiments purpose.
+  
+      a. Beibei:
+         There are 4 pickled files:
+         - 3 files with the `trn` prefix is the training data for pv (page view), cart (add-to-cart), and buy behaviors, and the rest with the 
+         - 1 file with the name `tst_int` is the test labels
+         
+     b. Tmall:
+       There are 5 pickled files:
+       - 4 files with the `trn` prefix is the training data for pv (page view), fav (tag-as-favorite), cart (add-to-cart), and buy behaviors, and the rest with the 
+       - 1 file with the name `tst_int` is the test labels
 
 ## How to use the recommender model
 1. Create a new folder named `History` in your working directory
