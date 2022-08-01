@@ -30,15 +30,15 @@ The MB-RGCN model is implemented under the following development environment:
   
     d. `Utils/`: This is a folder with script serves the utility purposes
   
-     -  `constants.oy`: This script covers the macros definition used in the project
+     -  `constants.py`: This script covers the macros definition used in the project
     
      - `NNLayers.py`: This script covers functions for tensorflow parameters management, and the basic layers such as FC (fully connected) layer, dropout layer, normalization layers, etc., and basic functions such as activation functions for neural networks construction and training
     
      - `TimeLogger.py`: This script serves as the logging helper
 
-2. python scripts for experiment purpose 
+  2. python scripts for experiment purpose 
 
-  Under the folder `Experiments/`, you can find the codes used to carry out the experiments for comparison and evaluation purpose
+     Under the folder `Experiments/`, you can find the codes used to carry out the experiments for comparison and evaluation purpose
 
   a. `Baselines/`: In this folder, there are the codes for comparison among the state-of-the-art baseline models. The script is named directly with the baselines' names
   
@@ -62,7 +62,7 @@ python MB_RGCN.py --gcn_list 3 3 3
 python MB_RGCN.py --gcn_list 4 4 4 4 --data tmall --save_path tmall_4444
 ```
 
-### Parameters
+### command line arguments
 - *gcn_list*: 
   
   The `gcn_list` argument cannot be skipped. You should use the long option argument `--gcn_list`, followed by a sequence of integers with space as the delimiter. The sequence of integers stands for the # of layers at **each behavior block**
@@ -79,5 +79,5 @@ python MB_RGCN.py --gcn_list 4 4 4 4 --data tmall --save_path tmall_4444
 For the detailed information of other arguments available, please refer to the `Params.py` script. The nature of each argument has been well documented in the `help` arguments.
 
 ## References
-- The main body of our code (The recommender constructor, train and test pipeline, and the data handler) refers to the code by 
-- The implementation of the LightGCN layer refers to the official open source code of the original LightGCN paper.
+- The main body of our code (e.g., the recommender constructor, train and test pipeline, and the data handler) refers to the code by https://github.com/akaxlh/GNMR
+- The implementation of the LightGCN layer refers to the official open source code by https://github.com/microsoft/recommenders
