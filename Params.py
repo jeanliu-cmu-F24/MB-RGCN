@@ -30,16 +30,4 @@ def parse_args():
 						to indicate the {# of LightGCN layers} within each behavior block')  # --gcn_list 2 1 1
 	return parser.parse_args()
 args = parse_args()
-# args.user = 805506#147894
-# args.item = 584050#99037
-# ML10M
-# args.user = 67788
-# args.item = 8704
-# tripAdvisor
-# args.user = 2180#13642#12755
-# args.item = 1349#2551#2469
-# yelp
-# args.user = 19800
-# args.item = 22734
-
 args.decay_step = args.trnNum // args.batch
