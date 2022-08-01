@@ -20,27 +20,29 @@ The MB-RGCN model is implemented under the following development environment:
   The preprocessed data can be found in the `/datasets` folder
  
 ## Files structure
-1. python scripts
+1. python scripts for our MB-RGCN model
 
-  a. `MB_RGCN.py`: This is the main structure of our MB-RGCN model, where we define the MB_RGCN recommender's class
+    a. `MB_RGCN.py`: This is the main structure of our MB-RGCN model, where we define the MB_RGCN recommender's class
   
-  b. `Params.py`: This is the arguments available when running the `MB_RGCN.py` script. The arguments cover the dataset, model configurations and other hyperparameters
+    b. `Params.py`: This is the arguments available when running the `MB_RGCN.py` script. The arguments cover the dataset, model configurations and other hyperparameters
   
-  c. `DataHandler.py`: This is the script used to load and process the pickled datasets, so that the main script can use the intermediate output to construct a recommender object for us
+    c. `DataHandler.py`: This is the script used to load and process the pickled datasets, so that the main script can use the intermediate output to construct a recommender object for us
   
-  d. Utils/: This is a folder with script serves the utility purposes
+    d. `Utils/`: This is a folder with script serves the utility purposes
   
-  -  `constants.oy`:
-      
-      This script covers the macros definition used in the project
+     -  `constants.oy`: This script covers the macros definition used in the project
     
-   - `NNLayers.py`:
+     - `NNLayers.py`: This script covers functions for tensorflow parameters management, and the basic layers such as FC (fully connected) layer, dropout layer, normalization layers, etc., and basic functions such as activation functions for neural networks construction and training
     
-      This script covers functions for tensorflow parameters management, and the basic layers such as FC (fully connected) layer, dropout layer, normalization layers, etc., and basic functions such as activation functions for neural networks construction and training
-    
-  - `TimeLogger.py`:
+     - `TimeLogger.py`: This script serves as the logging helper
 
-      This script serves as the logging helper
+2. python scripts for experiment purpose 
+
+  Under the folder `Experiments/`, you can find the codes used to carry out the experiments for comparison and evaluation purpose
+
+  a. `Baselines/`: In this folder, there are the codes for comparison among the state-of-the-art baseline models. The script is named directly with the baselines' names
+  
+  b. `ModuleEval/`: In this folder, there are the codes for sub-module validity evaluations
 
 ## How to use the recommender model
 1. Create a new folder named `History` in your working directory
