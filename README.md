@@ -17,7 +17,7 @@ The MB-RGCN model is implemented under the following development environment:
   
 - **Preprocessed data**
 
-  The preprocessed data can be found in the `/datasets` folder
+  The preprocessed pickled data can be found in the `/datasets` folder
  
 ## Files structure
 The organization of the working directory is as follows:
@@ -157,3 +157,4 @@ For the detailed information of other arguments available, please refer to the `
 ## References
 - The main body of our code (e.g., the recommender constructor, train and test pipeline, and the data handler) refers to the code by https://github.com/akaxlh/GNMR
 - The implementation of the LightGCN layer refers to the official open source code by https://github.com/microsoft/recommenders
+- The dataset preprocess refers to the code by https://github.com/akaxlh/MB-GMN
