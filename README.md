@@ -157,5 +157,11 @@ The organization of the working directory is as follows:
 
 ## References
 - The main body of our code (e.g., the recommender constructor, train and test pipeline, and the data handler) refers to the code by https://github.com/akaxlh/GNMR
+
+  Lianghao Xia, Chao Huang, Yong Xu, Peng Dai, Mengyin Lu, Liefeng Bo (2021). Multi-Behavior Enhanced Recommendation with Cross-Interaction Collaborative Relation Modeling, Paper in IEEE, Paper in ArXiv. In ICDE'21, Online, April 19-22, 2021.
+
 - The implementation of the LightGCN layer refers to the official open source code by https://github.com/microsoft/recommenders
+
 - The dataset preprocess refers to the code by https://github.com/akaxlh/MB-GMN
+
+  Lianghao Xia, Yong Xu, Chao Huang, Peng Dai, Liefeng Bo (2021). Graph Meta Network for Multi-Behavior Recommendation, Paper in ACM Digital Library, Paper in ArXiv. In SIGIR'21, Online, July 11-15, 2021.
