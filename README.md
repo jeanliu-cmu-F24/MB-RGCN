@@ -25,7 +25,7 @@ The MB-RGCN model is implemented under the following development environment:
 a. `MB_RGCN.py`: This is the main structure of our MB-RGCN model, where we define the MB_RGCN recommender's class
 b. ``:
 
-## Usage
+## How to use the recommender model
 1. Create a new folder namede `History` in your working directory
 
 ```bash
@@ -42,6 +42,11 @@ python MB_RGCN.py --gcn_list 3 3 3
 ```bash
 python MB_RGCN.py --gcn_list 4 4 4 4 --data tmall
 ```
+
+### Parameters
+- *gcn_list*: The gcn_list argument cannot be skipped. You should use the long option argument `--gcn_list`, followed by a sequence of integers with space as the delimiter. The sequence of integers stands for the # of layers at **each behavior block**
+  - for Beibei dataset, a integer sequence with a length of 3 shall be given, since the dataset comes with 3 behavior blocks by default
+  - for Tmall dataset, a integer sequence with a length of 4 shall be given, since the dataset comes with 4 behavior blocks by default
 
 ## References
 - The main body of our code (The recommender constructor, train and test pipeline, and the data handler) refers to the code by 
