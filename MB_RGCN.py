@@ -304,7 +304,7 @@ class Recommender:
 	def saveHistory(self):
 		if args.epoch == 0:
 			return
-		with open('/History/' + args.save_path + '.his', 'wb') as fs:
+		with open('History/' + args.save_path + '.his', 'wb') as fs:
 			pickle.dump(self.metrics, fs)
 
 		saver = tf.train.Saver()
